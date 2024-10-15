@@ -17,23 +17,22 @@ const food = {
   },
 };
 
-const tree = document.querySelector('body');
+const tree = document.querySelector('#tree');
 
 function createTree(element, data) {
   const ul = document.createElement('ul');
 
-  for (const key in data) {
+  for (let key in data) {
     const li = document.createElement('li');
-
     li.textContent = key;
     ul.appendChild(li);
 
     if (typeof data[key] === 'object' && Object.keys(data[key]).length > 0) {
-      createTree(li, data[key]);
+      li.appendChild(createTree(li, data[key]));
     }
   }
 
-  element.appendChild(ul);
+  return ul;
 }
 
-createTree(tree, food);
+tree.appendChild(createTree(tree, food));
